@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  postgresql:
+    container_name: postgres
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
+
+  stan:
+    container_name: server
+    image: nats-streaming:0.24.6
+    ports:
+      - "4223:4222"
+      - "8223:8222"
+    command:
+      - "--store"
+      - "file"
+      - "--dir"
+      - "data"
